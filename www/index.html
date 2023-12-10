@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login i Registre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        #login-form {
+            background-color: #e6f7ff; /* Color de fons per al formulari de login */
+        }
+
+        #register-form {
+            background-color: #ffe6e6; /* Color de fons per al formulari de registre */
+        }
+    </style>
+</head>
+<body>
+
+    <form id="login-form">
+        <h2>Login</h2>
+        <label for="username">Usuari:</label>
+        <input type="text" id="username" required>
+        <br>
+        <label for="password">Contrasenya:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="button" onclick="fer_login()">Login</button>
+    </form>
+
+    <form id="register-form">
+        <h2>Registre</h2>
+        <label for="reg-username">Usuari:</label>
+        <input type="text" id="reg-username" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <label for="reg-password">Contrasenya:</label>
+        <input type="password" id="reg-password" required>
+        <br>
+        <button type="button" onclick="fer_registre()">Registra't</button>
+    </form>
+
+    <script>
+        // Diccionari global d'usuaris, contrasenyes i correus electrònics
+        var usuaris = {
+            "usuari1": { "contrasenya": "contrasenya1", "email": "usuari1@example.com" },
+            "usuari2": { "contrasenya": "contrasenya2", "email": "usuari2@example.com" }
+        };
+
+        // Funció per a gestionar el login
+        function fer_login() {
+            var usuari = document.getElementById("username").value;
+            var contrasenya = document.getElementById("password").value;
+
+            // Comprovació si l'usuari i la contrasenya coincideixen amb algun dels usuaris
+            if (usuaris[usuari] && usuaris[usuari].contrasenya === contrasenya) {
+                alert("Login exitós");
+            } else {
+                alert("Login incorrecte");
+            }
+        }
+
+        // Funció per a gestionar el registre
+        function fer_registre() {
+            var nouUsuari = document.getElementById("reg-username").value;
+            var nouEmail = document.getElementById("email").value;
+            var novaContrasenya = document.getElementById("reg-password").value;
+
+            // Comprovar si el nom d'usuari i l'email ja existeixen
+            if (usuaris[nouUsuari] || correuJaExisteix(nouEmail)) {
+                alert("Error: Nom d'usuari o email ja existeixen.");
+            } else {
+                // Afegir el nou usuari al diccionari
+                usuaris[nouUsuari] = { "contrasenya": novaContrasenya, "email": nouEmail };
+                alert("Registre exitós");
+            }
+        }
+
+        // Funció per comprovar si l'email ja existeix
+        function correuJaExisteix(email) {
+            for (var usuari in usuaris) {
+                if (usuaris.hasOwnProperty(usuari)) {
+                    var correuUsuari = usuaris[usuari].email;
+                    if (correuUsuari === email) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    </script>
+
+</body>
+</html>
